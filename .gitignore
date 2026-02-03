@@ -1,0 +1,33 @@
+# Pliki tymczasowe i backupy
+*.backup
+*.backup_original
+*_backup
+*.tmp
+*.temp
+*~
+
+# Skrypty pomocnicze tłumaczenia
+*.py
+*.ps1
+*.bat
+
+# IDE i edytory
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# System operacyjny
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logi
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Raporty
+raport*.md

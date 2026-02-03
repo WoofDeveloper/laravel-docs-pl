@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Laravel 12.x - Dokumentacja PL</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link rel="icon" href="https://laravel.com/img/favicon/favicon.ico">
+  
+  <!-- Fonty -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Główne style Docsify -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  
+  <style>
+    /* Kolory Laravela */
+    :root {
+      --theme-color: #FF2D20;
+      --laravel-red: #FF2D20;
+      --sidebar-bg: #18181b;
+      --sidebar-text: #a3a3a3;
+      --sidebar-active: #ffffff;
+      --content-bg: #ffffff;
+      --text-color: #27272a;
+      --border-color: #e4e4e7;
+      --code-bg: #f4f4f5;
+    }
+
+    /* Reset i podstawowe style */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--content-bg);
+      color: var(--text-color);
+      line-height: 1.7;
+    }
+
+    /* Pasek boczny - ciemny motyw Laravel */
+    .sidebar {
+      background: var(--sidebar-bg) !important;
+      border-right: 1px solid #27272a;
+      padding: 0 !important;
+    }
+
+    .sidebar .app-name {
+      padding: 30px 25px 20px;
+      margin: 0;
+    }
+
+    .sidebar .app-name-link {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--sidebar-active) !important;
+      text-decoration: none;
+    }
+
+    .sidebar .app-name-link img {
+      max-height: 40px;
+      margin-bottom: 10px;
+    }
+
+    .sidebar-nav {
+      padding: 0 !important;
+    }
+
+    .sidebar-nav ul {
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar-nav li {
+      margin: 0;
+      line-height: 1.4;
+      list-style: none;
+    }
+
+    .sidebar-nav > ul > li {
+      padding: 0;
+    }
+
+    .sidebar-nav a {
+      color: var(--sidebar-text) !important;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 25px;
+      display: block;
+      border-left: 3px solid transparent;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .sidebar-nav a:hover {
+      color: var(--sidebar-active) !important;
+      background: #27272a;
+      border-left-color: var(--laravel-red);
+    }
+
+    .sidebar-nav li.active > a {
+      color: var(--sidebar-active) !important;
+      background: #27272a;
+      border-left-color: var(--laravel-red);
+      font-weight: 600;
+    }
+
+    /* Grupy w sidebarze (nagłówki kategorii) */
+    .sidebar-nav > ul > li > strong,
+    .sidebar-nav > ul > li > p > strong {
+      display: block;
+      color: #71717a;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 20px 25px 10px;
+      margin: 0;
+    }
+
+    .sidebar-nav > ul > li > strong:first-child,
+    .sidebar-nav > ul > li:first-child > strong {
+      padding-top: 10px;
+    }
+
+    .sidebar-nav > ul > li > p {
+      margin: 0;
+    }
+
+    /* Wcięcia dla zagnieżdżonych elementów */
+    .sidebar-nav ul ul {
+      padding-left: 0;
+    }
+
+    .sidebar-nav ul ul a {
+      padding-left: 35px;
+    }
+
+    /* Główna zawartość */
+    .content {
+      padding-top: 0;
+      left: 300px;
+    }
+
+    .markdown-section {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 40px 50px 60px;
+    }
+
+    /* Nagłówki */
+    .markdown-section h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin: 0 0 1.5rem;
+      color: var(--text-color);
+      letter-spacing: -0.02em;
+    }
+
+    .markdown-section h2 {
+      font-size: 1.875rem;
+      font-weight: 700;
+      margin: 3rem 0 1.5rem;
+      color: var(--text-color);
+      letter-spacing: -0.01em;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .markdown-section h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 2rem 0 1rem;
+      color: var(--text-color);
+    }
+
+    .markdown-section h4 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 1.5rem 0 1rem;
+      color: var(--text-color);
+    }
+
+    /* Linki */
+    .markdown-section a {
+      color: var(--laravel-red);
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+
+    .markdown-section a:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+    }
+
+    /* Bloki kodu */
+    .markdown-section pre {
+      background: var(--code-bg) !important;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem !important;
+      margin: 1.5rem 0;
+      overflow-x: auto;
+    }
+
+    .markdown-section pre > code {
+      background: transparent !important;
+      color: var(--text-color);
+      font-family: 'Fira Code', 'Consolas', 'Monaco', monospace !important;
+      font-size: 0.875rem !important;
+      line-height: 1.7;
+    }
+
+    .markdown-section code {
+      background: var(--code-bg);
+      color: var(--laravel-red);
+      font-family: 'Fira Code', 'Consolas', 'Monaco', monospace !important;
+      font-size: 0.875em;
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    /* Cytaty i uwagi */
+    .markdown-section blockquote {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      color: #78350f;
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .markdown-section blockquote p {
+      margin: 0.5rem 0;
+      font-weight: 500;
+    }
+
+    /* Listy */
+    .markdown-section ul,
+    .markdown-section ol {
+      padding-left: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    .markdown-section li {
+      margin: 0.5rem 0;
+    }
+
+    /* Tabele */
+    .markdown-section table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .markdown-section th {
+      background: var(--code-bg);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    .markdown-section td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .markdown-section tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Obrazki */
+    .markdown-section img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+    }
+
+    /* Pasek przewijania */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #52525b;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #71717a;
+    }
+
+    /* Przycisk kopiowania kodu */
+    .docsify-copy-code-button {
+      background: var(--laravel-red) !important;
+      color: white !important;
+      font-size: 0.75rem !important;
+      font-weight: 600 !important;
+      border-radius: 4px !important;
+      padding: 0.4rem 0.8rem !important;
+    }
+
+    .docsify-copy-code-button:hover {
+      opacity: 0.9;
+    }
+
+    /* Wyszukiwarka */
+    .search input {
+      background: #27272a !important;
+      border: 1px solid #3f3f46 !important;
+      color: var(--sidebar-active) !important;
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      font-size: 14px;
+    }
+
+    .search input:focus {
+      border-color: var(--laravel-red) !important;
+      outline: none;
+    }
+
+    .search .results-panel {
+      background: var(--sidebar-bg) !important;
+      border: 1px solid #3f3f46;
+      border-radius: 6px;
+      margin-top: 8px;
+    }
+
+    .search .matching-post {
+      border-bottom: 1px solid #3f3f46 !important;
+      padding: 0.75rem 1rem;
+    }
+
+    .search .matching-post:hover {
+      background: #27272a;
+    }
+
+    .search .matching-post h2 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--sidebar-active) !important;
+      margin: 0;
+    }
+
+    .search .matching-post p {
+      font-size: 13px;
+      color: var(--sidebar-text) !important;
+      margin: 0.25rem 0 0;
+    }
+
+    /* Responsywność */
+    @media screen and (max-width: 768px) {
+      .markdown-section {
+        padding: 20px 20px 40px;
+      }
+
+      .markdown-section h1 {
+        font-size: 2rem;
+      }
+
+      .markdown-section h2 {
+        font-size: 1.5rem;
+      }
+
+      .sidebar {
+        transform: translateX(-300px);
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .content {
+        left: 0;
+      }
+    }
+
+    /* Logo Laravel w sidebarze */
+    .app-name-link::before {
+      content: "";
+      display: block;
+      width: 50px;
+      height: 50px;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 52"><path d="M49.626 11.564a.809.809 0 0 1 .028.209v10.972a.8.8 0 0 1-.402.694l-9.209 5.302V39.25c0 .286-.152.55-.4.694L20.42 51.01c-.044.025-.092.041-.14.058-.018.006-.035.017-.054.022a.805.805 0 0 1-.41 0c-.022-.006-.042-.018-.063-.026-.044-.016-.09-.03-.132-.054L.402 39.944A.801.801 0 0 1 0 39.25V6.334c0-.072.01-.142.028-.21.006-.023.02-.044.028-.067.015-.042.029-.085.051-.124.015-.026.037-.047.055-.071.023-.032.044-.065.071-.093.023-.023.053-.04.079-.06.029-.024.055-.05.088-.069h.001l9.61-5.533a.802.802 0 0 1 .8 0l9.61 5.533h.002c.032.02.059.045.088.068.026.02.055.038.078.06.028.029.048.062.072.094.017.024.04.045.054.071.023.04.036.082.052.124.008.023.022.044.028.068a.809.809 0 0 1 .028.209v20.559l8.008-4.611v-10.51c0-.07.01-.141.028-.208.007-.024.02-.045.028-.068.016-.042.03-.085.052-.124.015-.026.037-.047.054-.071.024-.032.044-.065.072-.093.023-.023.052-.04.078-.06.03-.024.056-.05.088-.069h.001l9.611-5.533a.801.801 0 0 1 .8 0l9.61 5.533c.034.02.06.045.09.068.025.02.054.038.077.06.028.029.048.062.072.094.018.024.04.045.054.071.023.039.036.082.052.124.009.023.022.044.028.068zm-1.574 10.718v-9.124l-3.363 1.936-4.646 2.675v9.124l8.01-4.611zm-9.61 16.505v-9.13l-4.57 2.61-13.05 7.448v9.216l17.62-10.144zM1.602 7.719v31.068L19.22 48.93v-9.214l-9.204-5.209-.003-.002-.004-.002c-.031-.018-.057-.044-.086-.066-.025-.02-.054-.036-.076-.058l-.002-.003c-.026-.025-.044-.056-.066-.084-.02-.027-.044-.05-.06-.078l-.001-.003c-.018-.03-.029-.066-.042-.1-.013-.03-.03-.058-.038-.09v-.001c-.01-.038-.012-.078-.016-.117-.004-.03-.012-.06-.012-.09v-.002-21.481L4.965 9.654 1.602 7.72zm8.81-5.994L2.405 6.334l8.005 4.609 8.006-4.61-8.006-4.608zm4.164 28.764l4.645-2.674V7.719l-3.363 1.936-4.646 2.675v20.096l3.364-1.937zM39.243 7.164l-8.006 4.609 8.006 4.609 8.005-4.61-8.005-4.608zm-.801 10.605l-4.646-2.675-3.363-1.936v9.124l4.645 2.674 3.364 1.937v-9.124zM20.02 38.33l11.743-6.704 5.87-3.35-8-4.606-9.211 5.303-8.395 4.833 7.993 4.524z" fill="%23FF2D20"/></svg>');
+      background-size: contain;
+      background-repeat: no-repeat;
+      margin: 0 auto 15px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh; font-family: Inter, sans-serif;">
+      <div style="text-align: center;">
+        <div style="width: 60px; height: 60px; margin: 0 auto 20px;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 52" fill="#FF2D20">
+            <path d="M49.626 11.564a.809.809 0 0 1 .028.209v10.972a.8.8 0 0 1-.402.694l-9.209 5.302V39.25c0 .286-.152.55-.4.694L20.42 51.01c-.044.025-.092.041-.14.058-.018.006-.035.017-.054.022a.805.805 0 0 1-.41 0c-.022-.006-.042-.018-.063-.026-.044-.016-.09-.03-.132-.054L.402 39.944A.801.801 0 0 1 0 39.25V6.334c0-.072.01-.142.028-.21.006-.023.02-.044.028-.067.015-.042.029-.085.051-.124.015-.026.037-.047.055-.071.023-.032.044-.065.071-.093.023-.023.053-.04.079-.06.029-.024.055-.05.088-.069h.001l9.61-5.533a.802.802 0 0 1 .8 0l9.61 5.533h.002c.032.02.059.045.088.068.026.02.055.038.078.06.028.029.048.062.072.094.017.024.04.045.054.071.023.04.036.082.052.124.008.023.022.044.028.068a.809.809 0 0 1 .028.209v20.559l8.008-4.611v-10.51c0-.07.01-.141.028-.208.007-.024.02-.045.028-.068.016-.042.03-.085.052-.124.015-.026.037-.047.054-.071.024-.032.044-.065.072-.093.023-.023.052-.04.078-.06.03-.024.056-.05.088-.069h.001l9.611-5.533a.801.801 0 0 1 .8 0l9.61 5.533c.034.02.06.045.09.068.025.02.054.038.077.06.028.029.048.062.072.094.018.024.04.045.054.071.023.039.036.082.052.124.009.023.022.044.028.068zm-1.574 10.718v-9.124l-3.363 1.936-4.646 2.675v9.124l8.01-4.611zm-9.61 16.505v-9.13l-4.57 2.61-13.05 7.448v9.216l17.62-10.144zM1.602 7.719v31.068L19.22 48.93v-9.214l-9.204-5.209-.003-.002-.004-.002c-.031-.018-.057-.044-.086-.066-.025-.02-.054-.036-.076-.058l-.002-.003c-.026-.025-.044-.056-.066-.084-.02-.027-.044-.05-.06-.078l-.001-.003c-.018-.03-.029-.066-.042-.1-.013-.03-.03-.058-.038-.09v-.001c-.01-.038-.012-.078-.016-.117-.004-.03-.012-.06-.012-.09v-.002-21.481L4.965 9.654 1.602 7.72zm8.81-5.994L2.405 6.334l8.005 4.609 8.006-4.61-8.006-4.608zm4.164 28.764l4.645-2.674V7.719l-3.363 1.936-4.646 2.675v20.096l3.364-1.937zM39.243 7.164l-8.006 4.609 8.006 4.609 8.005-4.61-8.005-4.608zm-.801 10.605l-4.646-2.675-3.363-1.936v9.124l4.645 2.674 3.364 1.937v-9.124zM20.02 38.33l11.743-6.704 5.87-3.35-8-4.606-9.211 5.303-8.395 4.833 7.993 4.524z"/>
+          </svg>
+        </div>
+        <h2 style="color: #18181b; margin: 0 0 10px; font-size: 24px; font-weight: 700;">Ładowanie dokumentacji Laravel 12.x</h2>
+        <p style="color: #71717a; margin: 0; font-size: 14px;">Polskie tłumaczenie</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.$docsify = {
+      name: '<span style="font-weight: 700;">Laravel 12.x</span> <span style="font-weight: 400; opacity: 0.7;">PL</span>',
+      
+      // Konfiguracja paska bocznego
+      loadSidebar: true,
+      subMaxLevel: 3,
+      auto2top: true,
+      
+      // Strona główna
+      homepage: 'installation.md',
+      
+      // Aliasy dla sidebara
+      alias: {
+        '/.*/_sidebar.md': '/_sidebar.md'
+      },
+
+      // Wyszukiwarka
+      search: {
+        maxAge: 86400000,
+        paths: 'auto',
+        placeholder: 'Szukaj w dokumentacji...',
+        noData: 'Brak wyników',
+        depth: 6,
+        namespace: 'laravel-docs-pl',
+      },
+
+      // Kopiowanie kodu
+      copyCode: {
+        buttonText: 'Kopiuj',
+        errorText: 'Błąd',
+        successText: '✓ Skopiowano!'
+      },
+
+      // Liczba TOC
+      toc: {
+        tocMaxLevel: 3,
+        target: 'h2, h3, h4'
+      },
+
+      // Pagination
+      pagination: {
+        previousText: '← Poprzednia strona',
+        nextText: 'Następna strona →',
+        crossChapter: true,
+        crossChapterText: true,
+      },
+
+      // Formatowanie
+      formatUpdated: '{YYYY}-{MM}-{DD} {HH}:{mm}',
+
+      // Flex columns
+      markdown: {
+        renderer: {
+          code: function(code, lang) {
+            if (lang === "php" || lang === "blade") {
+              return '<pre data-lang="' + lang + '"><code class="lang-' + lang + '">' + 
+                     Prism.highlight(code, Prism.languages[lang] || Prism.languages.markup, lang) + 
+                     '</code></pre>';
+            }
+            return '<pre data-lang="' + lang + '"><code class="lang-' + lang + '">' + code + '</code></pre>';
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Skrypty Docsify -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+  
+  <!-- Wyszukiwarka -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  
+  <!-- Kopiowanie kodu -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code@2/dist/docsify-copy-code.min.js"></script>
+  
+  <!-- Powiększanie obrazków -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+  
+  <!-- Pagination -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
+
+  <!-- Obsługa składni - Prism.js -->
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-php.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-javascript.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-css.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-markup-templating.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-blade.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-yaml.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-sql.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-nginx.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-apache.min.js"></script>
+
+</body>
+</html>
